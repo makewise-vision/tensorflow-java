@@ -151,7 +151,7 @@ jobs:
           export HOME=/root
           mkdir -p $HOME/.m2
           [[ "${{ github.event_name }}" == "push" ]] && MAVEN_PHASE=deploy || MAVEN_PHASE=install
-          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.CI_DEPLOY_USERNAME }}</username><password>${{ secrets.CI_DEPLOY_PASSWORD }}</password></server></servers></settings>" > $HOME/.m2/settings.xml
+          echo "<settings><servers><server><id>nexus-releases</id><username>${{ secrets.CI_DEPLOY_USERNAME }}</username><password>${{ secrets.CI_DEPLOY_PASSWORD }}</password></server></servers></settings>" > $HOME/.m2/settings.xml
           if [[ "${{ github.event_name }}" == "push" && "${{ github.repository }}" == "tensorflow/java" ]]; then
             printf '%s\n' "${GCP_CREDS}" > $HOME/gcp_creds.json
             export BAZEL_CACHE="--remote_cache=https://storage.googleapis.com/tensorflow-sigs-jvm --remote_upload_local_results=true --google_credentials=$HOME/gcp_creds.json"
@@ -298,5 +298,6 @@ jobs:
         uses: actions/checkout@v1
       - name: Deploy snapshot artifacts
         run: |
-          echo "<settings><servers><server><id>ossrh</id><username>${{ secrets.CI_DEPLOY_USERNAME }}</username><password>${{ secrets.CI_DEPLOY_PASSWORD }}</password></server></servers></settings>" > settings.xml
+          echo "<settings><servers><server><id>nexus-releases</id><username>${{ secrets.CI_DEPLOY_USERNAME }}</username><password>${{ secrets.CI_DEPLOY_PASSWORD }}</password></server></servers></settings>" > settings.xml
           bash deploy.sh
+

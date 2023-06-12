@@ -8,12 +8,14 @@ export BAZEL_USE_CPP_ONLY_TOOLCHAIN=1
 export BAZEL_VC="${VCINSTALLDIR:-}"
 
 if [[ -d $BAZEL_VC ]]; then
+    echo 'BAZEL_VC'
     export BAZEL_BUILD="--output_user_root=$(cygpath -w $TMP) build"
     export BUILD_FLAGS="--copt=//arch:AVX `#--copt=//arch:AVX2` --define=override_eigen_strong_inline=true"
     export PYTHON_BIN_PATH=$(which python.exe)
 else
+    echo 'NO_BAZEL_VC'
     export BAZEL_BUILD="build"
-    export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mavx `#--copt=-mavx2 --copt=-mfma` --linkopt=-lstdc++ --host_linkopt=-lstdc++"
+    export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 `--copt=-mavx #--copt=-mavx2 --copt=-mfma` --linkopt=-lstdc++ --host_linkopt=-lstdc++"
     export PYTHON_BIN_PATH=$(which python3)
 fi
 
