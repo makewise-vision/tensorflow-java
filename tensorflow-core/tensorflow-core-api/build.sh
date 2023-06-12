@@ -10,7 +10,7 @@ export BAZEL_VC="${VCINSTALLDIR:-}"
 if [[ -d $BAZEL_VC ]]; then
     echo 'BAZEL_VC'
     export BAZEL_BUILD="--output_user_root=$(cygpath -w $TMP) build"
-    export BUILD_FLAGS="--copt=//arch:AVX `#--copt=//arch:AVX2` --define=override_eigen_strong_inline=true"
+    export BUILD_FLAGS="`--copt=//arch:AVX #--copt=//arch:AVX2` --define=override_eigen_strong_inline=true"
     export PYTHON_BIN_PATH=$(which python.exe)
 else
     echo 'NO_BAZEL_VC'
