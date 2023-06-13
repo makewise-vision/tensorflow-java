@@ -1,3 +1,4 @@
 build --remote_cache=https://storage.googleapis.com/tensorflow-sigs-jvm
 build --remote_upload_local_results=false
 build --experimental_ui_max_stdouterr_bytes=-1
+build --local_ram_resources=4096 --local_cpu_resources=HOST_CPUS-6 --jobs=6

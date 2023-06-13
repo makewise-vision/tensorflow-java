@@ -71,12 +71,12 @@ systems with no GPU support, you should add the following dependencies:
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-api</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
 </dependency>
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-api</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
   <classifier>linux-x86_64</classifier>
 </dependency>
 ```
@@ -87,24 +87,24 @@ native dependencies as follows:
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-api</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
 </dependency>
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-api</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
   <classifier>linux-x86_64-gpu</classifier>
 </dependency>
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-api</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
   <classifier>macosx-x86_64</classifier>
 </dependency>
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-api</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
   <classifier>windows-x86_64-gpu</classifier>
 </dependency>
 ```
@@ -126,7 +126,7 @@ simply add this dependency to your application:
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-platform</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
 </dependency>
 ```
 or this dependency if you want to run it only on platforms with GPU support:
@@ -134,7 +134,7 @@ or this dependency if you want to run it only on platforms with GPU support:
 <dependency>
   <groupId>org.tensorflow</groupId>
   <artifactId>tensorflow-core-platform-gpu</artifactId>
-  <version>0.5.0</version>
+  <version>0.5.1</version>
 </dependency>
 ```
 
