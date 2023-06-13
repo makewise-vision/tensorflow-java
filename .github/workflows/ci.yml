@@ -19,6 +19,7 @@ jobs:
     if: github.event_name == 'pull_request' && !contains(github.event.pull_request.labels.*.name, 'CI build')
     runs-on: ubuntu-20.04
     container: centos:7
+    timeout-minutes: 720
     steps:
       - name: Install environment
         run: |
@@ -96,6 +97,7 @@ jobs:
     runs-on: ubuntu-20.04
     container: centos:7
     needs: prepare
+    timeout-minutes: 720
     strategy:
       matrix:
         ext: ["", -gpu] #, -mkl, -mkl-gpu]
@@ -164,6 +166,7 @@ jobs:
   macosx-x86_64:
     if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'CI build')
     runs-on: macos-11
+    timeout-minutes: 720
     needs: prepare
     strategy:
       matrix:
@@ -205,6 +208,7 @@ jobs:
   windows-x86_64:
     if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'CI build')
     runs-on: windows-2019
+    timeout-minutes: 720
     needs: prepare
     strategy:
        matrix:
