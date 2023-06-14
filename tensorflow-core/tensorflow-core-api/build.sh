@@ -15,11 +15,13 @@ if [[ -d $BAZEL_VC ]]; then
     elif [[ "${EXTENSION:-}" == *-fma* ]]; then
         export BUILD_FLAGS="--define=override_eigen_strong_inline=true"
     elif [[ "${EXTENSION:-}" == *-avx2* ]]; then
-        export BUILD_FLAGS="--copt=//arch:AVX2 --define=override_eigen_strong_inline=true"
+        export BUILD_FLAGS="--copt=//arch:AVX --copt=//arch:AVX2 --define=override_eigen_strong_inline=true"
     elif [[ "${EXTENSION:-}" == *-avx512* ]]; then
-        export BUILD_FLAGS="--copt=//arch:AVX512 --define=override_eigen_strong_inline=true"
+        export BUILD_FLAGS="--copt=//arch:AVX --copt=//arch:AVX2 --copt=//arch:AVX512 --define=override_eigen_strong_inline=true"
     elif [[ "${EXTENSION:-}" == *-avx512f* ]]; then
-        export BUILD_FLAGS="--copt=//arch:AVX512F --define=override_eigen_strong_inline=true"
+        export BUILD_FLAGS="--copt=//arch:AVX --copt=//arch:AVX2 --copt=//arch:AVX512 --copt=//arch:AVX512F --define=override_eigen_strong_inline=true"
+    elif [[ "${EXTENSION:-}" == *-avx512vnni* ]]; then
+        export BUILD_FLAGS="--copt=//arch:AVX --copt=//arch:AVX2 --copt=//arch:AVX512 --copt=//arch:AVX512F --copt=//arch:AVX512VNNI --define=override_eigen_strong_inline=true"
     else
         export BUILD_FLAGS="--copt=//arch:AVX --define=override_eigen_strong_inline=true"
     fi
