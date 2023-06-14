@@ -36,9 +36,9 @@ else
     elif [[ "${EXTENSION:-}" == *-avx2* ]]; then
         export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mfma --copt=-mavx --copt=-mavx2 --linkopt=-lstdc++ --host_linkopt=-lstdc++"
     elif [[ "${EXTENSION:-}" == *-avx512f* ]]; then
-        export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mfma --copt=-mavx --copt=-mavx2 ---copt=-mavx512 --copt=-mavx512f --linkopt=-lstdc++ --host_linkopt=-lstdc++"
+        export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mfma --copt=-mavx --copt=-mavx2 --copt=-mavx512 --copt=-mavx512f --linkopt=-lstdc++ --host_linkopt=-lstdc++"
     elif [[ "${EXTENSION:-}" == *-avx512vnni* ]]; then
-        export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mfma --copt=-mavx --copt=-mavx2 ---copt=-mavx512 --copt=-mavx512f --copt=-mavx512vnni --linkopt=-lstdc++ --host_linkopt=-lstdc++"
+        export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mfma --copt=-mavx --copt=-mavx2 --copt=-mavx512 --copt=-mavx512f --copt=-mavx512vnni --linkopt=-lstdc++ --host_linkopt=-lstdc++"
     elif [[ "${EXTENSION:-}" == *-avx512* ]]; then
         export BUILD_FLAGS="--copt=-msse4.1 --copt=-msse4.2 --copt=-mfma --copt=-mavx --copt=-mavx2 --copt=-mavx512 --linkopt=-lstdc++ --host_linkopt=-lstdc++"
     else
