@@ -101,7 +101,7 @@ snapshots repository in your `pom.xml`.
     <dependency>
         <groupId>org.tensorflow</groupId>
         <artifactId>tensorflow-core-platform</artifactId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>0.5.1-mk-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```

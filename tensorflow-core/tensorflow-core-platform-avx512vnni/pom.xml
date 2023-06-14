@@ -24,12 +24,13 @@
     <artifactId>tensorflow-core</artifactId>
     <version>0.5.1-mk-SNAPSHOT</version>
   </parent>
-  <artifactId>tensorflow-core-platform</artifactId>
-  <name>TensorFlow Core API Library Platform</name>
+  <artifactId>tensorflow-core-platform-avx512vnni</artifactId>
+  <name>TensorFlow Core API Library Platform avx512vnni avx512 avx2 avx fma sse4_1 and sse4_2 cpu flags</name>
 
   <properties>
     <javacpp.moduleId>tensorflow-core-api</javacpp.moduleId>
-    <java.module.name>org.tensorflow.core.platform</java.module.name>
+    <javacpp.platform.extension>-avx512vnni</javacpp.platform.extension>
+    <java.module.name>org.tensorflow.core.platform.avx512vnni</java.module.name>
   </properties>
 
   <dependencies>
@@ -45,18 +46,6 @@
       <classifier>${javacpp.platform.linux-x86_64}</classifier>
     </dependency>
     <dependency>
-      <groupId>org.bytedeco</groupId>
-      <artifactId>javacpp</artifactId>
-      <version>${javacpp.version}</version>
-      <classifier>${javacpp.platform.macosx-x86_64}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>org.bytedeco</groupId>
-      <artifactId>javacpp</artifactId>
-      <version>${javacpp.version}</version>
-      <classifier>${javacpp.platform.windows-x86_64}</classifier>
-    </dependency>
-    <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>${javacpp.moduleId}</artifactId>
       <version>${project.version}</version>
@@ -66,18 +55,6 @@
       <artifactId>${javacpp.moduleId}</artifactId>
       <version>${project.version}</version>
       <classifier>${javacpp.platform.linux-x86_64.extension}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>${javacpp.moduleId}</artifactId>
-      <version>${project.version}</version>
-      <classifier>${javacpp.platform.macosx-x86_64.extension}</classifier>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>${javacpp.moduleId}</artifactId>
-      <version>${project.version}</version>
-      <classifier>${javacpp.platform.windows-x86_64.extension}</classifier>
     </dependency>
   </dependencies>
 
@@ -91,7 +68,7 @@
             <configuration>
               <archive>
                 <manifestEntries>
-                  <Class-Path>${javacpp.moduleId}.jar ${javacpp.moduleId}-linux-x86_64.jar</Class-Path>
+                  <Class-Path>${javacpp.moduleId}.jar ${javacpp.moduleId}-linux-x86_64${javacpp.platform.extension}.jar</Class-Path>
                   <Automatic-Module-Name>${java.module.name}</Automatic-Module-Name>
                 </manifestEntries>
               </archive>
