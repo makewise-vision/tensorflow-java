@@ -68,7 +68,7 @@
             <configuration>
               <archive>
                 <manifestEntries>
-                  <Class-Path>${javacpp.moduleId}.jar ${javacpp.moduleId}-linux-x86_64${javacpp.platform.extension}.jar</Class-Path>
+                  <Class-Path>${javacpp.moduleId}.jar ${javacpp.moduleId}-linux-x86_64-avx512vnni.jar</Class-Path>
                   <Automatic-Module-Name>${java.module.name}</Automatic-Module-Name>
                 </manifestEntries>
               </archive>
