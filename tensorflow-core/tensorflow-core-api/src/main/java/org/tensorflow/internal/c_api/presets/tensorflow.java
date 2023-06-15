@@ -139,7 +139,7 @@ import org.bytedeco.javacpp.tools.InfoMapper;
           }),
       @Platform(
           value = {"linux", "macosx", "windows"},
-          extension = {"-mkl", "-gpu", "-mkl-gpu"})
+          extension = {"-mkl", "-gpu", "-mkl-gpu","-sse","-avx2","-avx512f","-avx512vnni"})
     },
     target = "org.tensorflow.internal.c_api",
     global = "org.tensorflow.internal.c_api.global.tensorflow")
