@@ -100,7 +100,7 @@ jobs:
     timeout-minutes: 720
     strategy:
       matrix:
-        ext: [-avx2 , -avx512f, -avx512vnni, "", -sse ] #, -gpu, -mkl, -mkl-gpu]
+        ext: [-avx512vnni, -sse ] # ,-avx2 , -avx512f, -gpu, -mkl, -mkl-gpu]
     steps:
       - name: Install environment
         run: |
@@ -134,6 +134,7 @@ jobs:
           rm -f $(find /usr/local/cuda/ -name '*.a' -and -not -name libcudart_static.a -and -not -name libcudadevrt.a)
           rm -rf /usr/local/cuda/doc* /usr/local/cuda/libnvvp* /usr/local/cuda/nsight* /usr/local/cuda/samples*
           fi
+          cat /proc/cpuinfo
       - name: Configure Java
         uses: actions/setup-java@v2
         with:
@@ -159,6 +160,9 @@ jobs:
             export BAZEL_CACHE="--remote_cache=https://storage.googleapis.com/tensorflow-sigs-jvm --remote_upload_local_results=true --google_credentials=$HOME/gcp_creds.json"
           else
             export BAZEL_CACHE="--remote_cache=https://storage.googleapis.com/tensorflow-sigs-jvm --remote_upload_local_results=false"
+          fi
+          if [[ "${{ matrix.ext }}" == *-avx512vnni ]]; then
+            set "SKIP_EXPORT=true"
           fi
           echo Executing Maven $MAVEN_PHASE
           mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
