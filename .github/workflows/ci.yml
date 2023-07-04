@@ -100,7 +100,7 @@ jobs:
     timeout-minutes: 720
     strategy:
       matrix:
-        ext: [-avx512vnni, -sse ] # ,-avx2 , -avx512f, -gpu, -mkl, -mkl-gpu]
+        ext: ["", -avx512vnni, -sse ,-avx2 , -avx512f]
     steps:
       - name: Install environment
         run: |

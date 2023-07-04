@@ -7,7 +7,7 @@
 
     <groupId>org.tensorflow</groupId>
     <artifactId>tensorflow-java</artifactId>
-    <version>0.5.1-mk-SNAPSHOT</version>
+    <version>0.5.1-mk</version>
     <packaging>pom</packaging>
 
     <name>TensorFlow Java Parent</name>

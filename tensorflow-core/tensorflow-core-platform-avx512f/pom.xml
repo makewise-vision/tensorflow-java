@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.tensorflow</groupId>
     <artifactId>tensorflow-core</artifactId>
-    <version>0.5.1-mk-SNAPSHOT</version>
+    <version>0.5.1-mk</version>
   </parent>
   <artifactId>tensorflow-core-platform-avx512f</artifactId>
   <name>TensorFlow Core API Library Platform avx512f avx2 avx fma sse4_1 and sse4_2 cpu flags</name>
