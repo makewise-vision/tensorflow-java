@@ -22,7 +22,7 @@
   <parent>
     <groupId>org.tensorflow</groupId>
     <artifactId>tensorflow-core</artifactId>
-    <version>0.5.1-mk</version>
+    <version>0.5.0</version>
   </parent>
   <artifactId>tensorflow-core-platform-sse</artifactId>
   <name>TensorFlow Core API Library Platform sse4_1 and sse4_2 cpu flags</name>

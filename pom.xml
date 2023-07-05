@@ -7,7 +7,7 @@
 
     <groupId>org.tensorflow</groupId>
     <artifactId>tensorflow-java</artifactId>
-    <version>0.5.1-mk</version>
+    <version>0.5.0</version>
     <packaging>pom</packaging>
 
     <name>TensorFlow Java Parent</name>
@@ -78,13 +78,13 @@
     </pluginRepositories>
     <distributionManagement>
         <repository>
-            <id>nexus-releases</id>
-            <url>https://nexus.makewise.co/repository/releases</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/makewise-vision/tensorflow-java</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <url>https://nexus.makewise.co/repository/snapshots</url>
-        </snapshotRepository>
     </distributionManagement>
     <dependencyManagement>
         <dependencies>
