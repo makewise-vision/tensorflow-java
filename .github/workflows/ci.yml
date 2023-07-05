@@ -101,6 +101,9 @@ jobs:
     strategy:
       matrix:
         ext: [""]
+    permissions:
+        contents: read
+        packages: write
     steps:
       - name: Install environment
         run: |
@@ -143,8 +146,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v1
       - name: Build project
-        with:
-            repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           source scl_source enable devtoolset-9 rh-git218 || true
           git --version
@@ -152,11 +153,12 @@ jobs:
           mvn -version
           bazel version
           df -h
-          echo "Fixing HOME to /root (was '$HOME')"
-          export HOME=/root
-          mkdir -p $HOME/.m2
+          # echo "Fixing HOME to /root (was '$HOME')"
+          # export HOME=/root
+          # mkdir -p $HOME/.m2
           [[ "${{ github.event_name }}" == "push" ]] && MAVEN_PHASE=deploy || MAVEN_PHASE=install
-          # echo "<settings><servers><server><id>nexus-releases</id><username>${{ secrets.CI_DEPLOY_USERNAME }}</username><password>${{ secrets.CI_DEPLOY_PASSWORD }}</password></server><server><id>nexus-snapshots</id><username>${{ secrets.CI_DEPLOY_USERNAME }}</username><password>${{ secrets.CI_DEPLOY_PASSWORD }}</password></server></servers></settings>" > $HOME/.m2/settings.xml
+          # echo "<settings><servers><server><id>github</id><username>dummy</username><password>${{secrets.GITHUB_TOKEN}}</password></server></servers></settings>" > $HOME/.m2/settings.xml
+          cat /github/home/.m2/settings.xml
           if [[ "${{ github.event_name }}" == "push" && "${{ github.repository }}" == "tensorflow/java" ]]; then
             printf '%s\n' "${GCP_CREDS}" > $HOME/gcp_creds.json
             export BAZEL_CACHE="--remote_cache=https://storage.googleapis.com/tensorflow-sigs-jvm --remote_upload_local_results=true --google_credentials=$HOME/gcp_creds.json"
@@ -165,12 +167,14 @@ jobs:
           fi
           if [[ "${{ matrix.ext }}" == *-avx512vnni ]]; then
             export SKIP_EXPORT="true"
-            mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -Dmaven.test.skip=true -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
+            mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -s /github/home/.m2/settings.xml -Dmaven.test.skip=true -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
           else
-            mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
+            mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -s /github/home/.m2/settings.xml -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
           fi
           echo Executing Maven $MAVEN_PHASE
           df -h
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     if: github.event_name == 'push' && contains(github.ref, 'master')
     needs: [linux-x86_64]
