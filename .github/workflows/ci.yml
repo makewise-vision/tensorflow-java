@@ -100,7 +100,7 @@ jobs:
     timeout-minutes: 720
     strategy:
       matrix:
-        ext: ["", -avx512vnni, -sse ,-avx2 , -avx512f]
+        ext: [-avx512vnni, -sse ,-avx2 , -avx512f]
     permissions:
         contents: read
         packages: write
@@ -165,9 +165,9 @@ jobs:
           fi
           if [[ "${{ matrix.ext }}" == *-avx512vnni ]]; then
             export SKIP_EXPORT="true"
-            mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -s /github/home/.m2/settings.xml -Dmaven.test.skip=true -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
+            mvn clean install -P deploy-classifier-artifacts -B -U -e -Djavacpp.platform=linux-x86_64 -s /github/home/.m2/settings.xml -Dmaven.test.skip=true -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
           else
-            mvn clean $MAVEN_PHASE -B -U -e -Djavacpp.platform=linux-x86_64 -s /github/home/.m2/settings.xml -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
+            mvn clean install -P deploy-classifier-artifacts -B -U -e -Djavacpp.platform=linux-x86_64 -s /github/home/.m2/settings.xml -Djavacpp.platform.extension=${{ matrix.ext }} -pl $NATIVE_BUILD_PROJECTS -am -DstagingRepositoryId=${{ needs.prepare.outputs.stagingRepositoryId }} "-Dnative.build.flags=$BAZEL_CACHE"
           fi
           echo Executing Maven $MAVEN_PHASE
           df -h
