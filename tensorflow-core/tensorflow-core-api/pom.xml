@@ -147,6 +147,8 @@
                                 <configuration>
                                     <file>${project.build.directory}/${project.artifactId}-${project.version}-${native.classifier}.jar</file>
                                     <classifier>${native.classifier}</classifier>
+                                    <url>https://maven.pkg.github.com/makewise-vision/tensorflow-java</url>
+                                    <repositoryId>github</repositoryId>
                                 </configuration>
                             </execution>
                         </executions>
