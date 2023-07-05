@@ -100,7 +100,7 @@ jobs:
     timeout-minutes: 720
     strategy:
       matrix:
-        ext: [""]
+        ext: ["", -avx512vnni, -sse ,-avx2 , -avx512f]
     permissions:
         contents: read
         packages: write
@@ -153,11 +153,9 @@ jobs:
           mvn -version
           bazel version
           df -h
-          # echo "Fixing HOME to /root (was '$HOME')"
-          # export HOME=/root
-          # mkdir -p $HOME/.m2
+          echo "Fixing HOME to /root (was '$HOME')"
+          export HOME=/root
           [[ "${{ github.event_name }}" == "push" ]] && MAVEN_PHASE=deploy || MAVEN_PHASE=install
-          # echo "<settings><servers><server><id>github</id><username>dummy</username><password>${{secrets.GITHUB_TOKEN}}</password></server></servers></settings>" > $HOME/.m2/settings.xml
           cat /github/home/.m2/settings.xml
           if [[ "${{ github.event_name }}" == "push" && "${{ github.repository }}" == "tensorflow/java" ]]; then
             printf '%s\n' "${GCP_CREDS}" > $HOME/gcp_creds.json
