@@ -100,7 +100,7 @@ jobs:
     timeout-minutes: 720
     strategy:
       matrix:
-        ext: [""]
+        ext: [-sse]
     permissions:
         contents: read
         packages: write
