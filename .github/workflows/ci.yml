@@ -100,7 +100,7 @@ jobs:
     timeout-minutes: 720
     strategy:
       matrix:
-        ext: [-avx512vnni, -sse ,-avx2 , -avx512f]
+        ext: [""]
     permissions:
         contents: read
         packages: write
